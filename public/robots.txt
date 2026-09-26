@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://itr-montazh.ru/sitemap-index.xml

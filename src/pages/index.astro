@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SepticCard from '../components/SepticCard.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { getCollection } from 'astro:content';
+
+const septics = await getCollection('septic');
+const services = await getCollection('services');
+
+const featured = septics.filter((s) => s.data.featured).slice(0, 4);
+const bestsellers = septics.filter((s) => s.data.bestseller).slice(0, 8);
+
+const stats = [
+  { value: '18', label: 'брендов септиков' },
+  { value: '23+', label: 'объекта смонтировано' },
+  { value: '5', label: 'лет гарантии на корпус' },
+  { value: '24/7', label: 'поддержка клиентов' },
+];
+
+const usp = [
+  { title: 'Монтаж под ключ', text: 'Полный цикл от выезда до пуско-наладки. Никаких скрытых работ.', icon: 'wrench' },
+  { title: 'Бесплатный выезд', text: 'Инженер выезжает по Москве и МО, замеряет участок и подбирает модель.', icon: 'pin' },
+  { title: 'Гарантия 5 лет', text: 'На корпус станции и до 2 лет на оборудование. Сервисное обслуживание.', icon: 'shield' },
+  { title: 'Подбор под участок', text: 'Учитываем грунт, УГВ, число проживающих и сантехнику.', icon: 'search' },
+];
+
+const brands = [
+  'Малахит', 'ТОПАС', 'Юнилос Астра', 'Евролос', 'Тверь',
+  'БиоДека', 'Тополь', 'Итал', 'Гринлос', 'Коловеси',
+  'Ergobox', 'Аквалос', 'Волгарь', 'Альта Био', 'Кит', 'ЭкоГранд'
+];
+
+const reviews = [
+  { name: 'Алексей М.', location: 'Истра', text: 'Поставили Малахит АИР-5 за один день. Всё чисто, аккуратно. Через неделю как и не было работ. Работает бесшумно.', rating: 5 },
+  { name: 'Елена В.', location: 'Подольск', text: 'Боялась выкидывать деньги на септик, но выезд инженера и подробный подбор сняли все вопросы. ТОПАС 4 — то что нужно.', rating: 5 },
+  { name: 'Дмитрий С.', location: 'Чеховский р-н', text: 'Делал шеф-монтаж — у меня были свои строители, ваш инженер проконтролировал. Сэкономил 30% от полной стоимости монтажа.', rating: 5 },
+  { name: 'Марина К.', location: 'Красногорск', text: 'У нас высокий УГВ. Поставили Малахит ГЕО-4 — работает идеально. Спасибо за профессиональный подход!', rating: 5 },
+];
+---
+
+<BaseLayout>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-ink-900 via-ink-800 to-brand-900 text-white">
+    <div class="absolute inset-0 opacity-20 pointer-events-none">
+      <div class="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-brand-500 blur-3xl"></div>
+      <div class="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-brand-400 blur-3xl"></div>
+    </div>
+
+    <div class="container-page relative py-16 md:py-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-brand-500/20 text-brand-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wider">
+            Дилер ИТР · Москва и МО
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+            Септики <span class="text-gradient-brand">под ключ</span><br />
+            в Москве и области
+          </h1>
+          <p class="mt-5 text-lg text-ink-200 max-w-xl leading-relaxed">
+            Продажа и монтаж автономных очистных систем. Завод <strong class="text-white">Малахит</strong>
+            и 18 ведущих брендов. Бесплатный выезд инженера, рассрочка 0%.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#lead-form" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3.5 rounded-xl transition-colors inline-flex items-center gap-2">
+              Подобрать септик
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+            <a href="/catalog" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-6 py-3.5 rounded-xl transition-colors">
+              Смотреть каталог
+            </a>
+            <a href="tel:+74957927277" class="text-white font-semibold px-6 py-3.5 inline-flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.22l-2.3 1.15a11 11 0 005.52 5.52l1.15-2.3a1 1 0 011.22-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z"/>
+              </svg>
+              +7 (495) 792-72-77
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero card -->
+        <div class="relative hidden lg:block">
+          <div class="absolute -inset-4 bg-brand-500/20 rounded-3xl blur-2xl"></div>
+          <div class="relative bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6">
+            <div class="text-xs text-ink-300 uppercase tracking-wider mb-3">Бестселлер месяца</div>
+            <div class="bg-white rounded-xl p-6 text-ink-900">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-12 h-12 rounded-lg bg-brand-500 text-white flex items-center justify-center font-bold">М</div>
+                <div>
+                  <div class="text-xs text-brand-600 font-semibold uppercase">Малахит</div>
+                  <div class="font-bold">АИР-5</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <div class="text-ink-500">Производительность</div>
+                  <div class="font-semibold">1000 л/сут</div>
+                </div>
+                <div>
+                  <div class="text-ink-500">Пользователи</div>
+                  <div class="font-semibold">5 чел.</div>
+                </div>
+                <div>
+                  <div class="text-ink-500">Залповый сброс</div>
+                  <div class="font-semibold">250 л</div>
+                </div>
+                <div>
+                  <div class="text-ink-500">Гарантия</div>
+                  <div class="font-semibold">5 лет</div>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-end justify-between">
+                <div>
+                  <div class="text-xs text-ink-400 line-through">138 000 ₽</div>
+                  <div class="text-2xl font-bold text-brand-600">119 000 ₽</div>
+                </div>
+                <a href="/catalog/malahit-air-5" class="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg">
+                  Подробнее
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((s) => (
+          <div class="text-center md:text-left">
+            <div class="text-3xl md:text-4xl font-bold text-brand-400">{s.value}</div>
+            <div class="text-sm text-ink-300 mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="py-12 md:py-16 bg-white">
+    <div class="container-page">
+      <div class="text-center mb-8">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Бренды</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">18 ведущих производителей септиков</h2>
+      </div>
+      <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+        {brands.map((b) => (
+          <span class="inline-flex items-center px-4 py-2 bg-ink-50 hover:bg-brand-50 hover:text-brand-700 text-ink-700 text-sm font-medium rounded-full transition-colors cursor-default">
+            {b}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- USP -->
+  <section class="py-12 md:py-16 bg-ink-50">
+    <div class="container-page">
+      <div class="text-center mb-10">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Почему мы</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">Работаем под ключ — отвечаем за результат</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {usp.map((item) => (
+          <div class="bg-white rounded-2xl p-6 border border-ink-100 hover:border-brand-300 transition-colors">
+            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
+              {item.icon === 'wrench' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-9.61-9.61a4.5 4.5 0 10-6.364-6.364L3 4.5 4.5 3l.276.276a4.5 4.5 0 006.364 6.364L20.25 18.75 18.75 20.25l-7.33-7.33m1.834 1.834l-1.585-1.586"/></svg>
+              )}
+              {item.icon === 'pin' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+              )}
+              {item.icon === 'shield' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+              )}
+              {item.icon === 'search' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 0z"/></svg>
+              )}
+            </div>
+            <h3 class="font-bold text-ink-900 mb-2">{item.title}</h3>
+            <p class="text-sm text-ink-600 leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CATALOG -->
+  <section class="py-12 md:py-20 bg-white">
+    <div class="container-page">
+      <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+        <div>
+          <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Каталог</div>
+          <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">Популярные модели</h2>
+          <p class="mt-2 text-ink-600 max-w-xl">Самые востребованные модели по соотношению цена/качество. Цены указаны под ключ с монтажом.</p>
+        </div>
+        <a href="/catalog" class="inline-flex items-center gap-2 text-brand-600 hover:text-brand-700 font-semibold">
+          Весь каталог
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {featured.map((s) => (
+          <SepticCard
+            href={`/catalog/${s.id}`}
+            title={s.data.title}
+            brand={s.data.brand}
+            people={s.data.people}
+            price={s.data.price}
+            priceOld={s.data.priceOld}
+            shortDescription={s.data.shortDescription}
+            badge={s.data.bestseller ? 'Бестселлер' : undefined}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="py-12 md:py-20 bg-ink-50">
+    <div class="container-page">
+      <div class="text-center mb-10">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Услуги</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">Полный цикл работ</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {services.map((s) => (
+          <a href={`/services/${s.data.slug}`} class="group bg-white rounded-2xl p-6 border border-ink-100 hover:border-brand-300 hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
+              {s.data.icon === 'wrench' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-9.61-9.61a4.5 4.5 0 10-6.364-6.364L3 4.5 4.5 3l.276.276a4.5 4.5 0 006.364 6.364L20.25 18.75 18.75 20.25l-7.33-7.33m1.834 1.834l-1.585-1.586"/></svg>
+              )}
+              {s.data.icon === 'gear' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.142-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.781-.929l.149-.894z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              )}
+              {s.data.icon === 'user-helmet' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v18m-4.5 0h9M21 12l-4.5-4.5M16.5 7.5L21 12m-4.5-4.5v18m4.5-9h-9"/></svg>
+              )}
+              {s.data.icon === 'search' && (
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 0z"/></svg>
+              )}
+            </div>
+            <h3 class="font-bold text-ink-900 mb-2 group-hover:text-brand-600 transition-colors">{s.data.title}</h3>
+            <p class="text-sm text-ink-600 leading-relaxed mb-3">{s.data.shortDescription}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-brand-600 font-semibold text-sm">{s.data.price}</span>
+              <span class="text-ink-400 group-hover:text-brand-600 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="py-12 md:py-20 bg-white">
+    <div class="container-page">
+      <div class="text-center mb-10">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Как мы работаем</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">5 простых шагов</h2>
+      </div>
+      <div class="grid md:grid-cols-5 gap-5">
+        {[
+          { step: '01', title: 'Заявка', text: 'Оставляете заявку на сайте или звоните' },
+          { step: '02', title: 'Выезд инженера', text: 'Бесплатный замер участка и подбор модели' },
+          { step: '03', title: 'Договор', text: 'Фиксируем стоимость, подписываем договор' },
+          { step: '04', title: 'Монтаж', text: 'Земляные работы, установка, пуско-наладка' },
+          { step: '05', title: 'Гарантия', text: 'Гарантия 5 лет и сервисное обслуживание' },
+        ].map((item) => (
+          <div class="relative">
+            <div class="text-4xl font-bold text-brand-200 mb-2">{item.step}</div>
+            <h3 class="font-bold text-ink-900 mb-1">{item.title}</h3>
+            <p class="text-sm text-ink-600 leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="py-12 md:py-20 bg-ink-50">
+    <div class="container-page">
+      <div class="text-center mb-10">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Отзывы</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">Что говорят клиенты</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {reviews.map((r) => (
+          <div class="bg-white rounded-2xl p-6 border border-ink-100">
+            <div class="flex gap-0.5 mb-3">
+              {Array.from({ length: r.rating }).map(() => (
+                <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              ))}
+            </div>
+            <p class="text-sm text-ink-700 leading-relaxed mb-4">{r.text}</p>
+            <div class="text-sm">
+              <div class="font-semibold text-ink-900">{r.name}</div>
+              <div class="text-ink-500">{r.location}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD FORM -->
+  <LeadForm />
+</BaseLayout>

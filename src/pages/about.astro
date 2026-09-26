@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+const stats = [
+  { value: '18', label: 'брендов септиков в каталоге' },
+  { value: '23+', label: 'объекта смонтировано' },
+  { value: '5 лет', label: 'гарантия на корпус' },
+  { value: '0 ₽', label: 'бесплатный выезд инженера' },
+];
+
+const advantages = [
+  { title: 'Официальный дилер ИТР', text: 'Прямые контракты с заводами-производителями. Цены ниже, чем у перекупов. Все документы — отгрузочные накладные, паспорта, сертификаты.' },
+  { title: 'Аттестованная бригада монтажников', text: 'Бригады с опытом 7+ лет. Аттестованы заводами Малахит, ТОПАС, Юнилос. Каждый монтаж — по технологии производителя.' },
+  { title: 'Собственный сервис', text: 'Не передаём обслуживание сторонним подрядчикам. Свой склад запчастей, свой сервисный инженер. Реагируем в течение 24 часов.' },
+  { title: 'Фиксированная смета', text: 'В договоре прописаны все этапы работ и стоимость. Никаких доплат «по ходу монтажа». Цена в КП = цена в договоре.' },
+  { title: 'Гарантия на все работы', text: '5 лет на корпус станции, 2 года на монтажные работы, 1-2 года на оборудование. Бесплатное гарантийное обслуживание.' },
+  { title: 'Рассрочка 0%', text: 'Беспроцентная рассрочка на 6 месяцев через банк-партнёр. Без первого взноса и переплат. Оформление за 15 минут.' },
+];
+
+const process = [
+  { title: 'Заявка', text: 'Вы оставляете заявку на сайте или звоните по телефону. Мы фиксируем обращение и согласуем удобное время для выезда.' },
+  { title: 'Выезд инженера', text: 'Инженер приезжает на участок, замеряет грунт, УГВ, расстояния. Подбирает 2-3 оптимальные модели.' },
+  { title: 'Коммерческое предложение', text: 'Присылаем КП с фиксированной ценой под ключ. Срок действия — 30 дней.' },
+  { title: 'Договор', text: 'Подписываем договор, согласовываем дату монтажа. Вносится предоплата по согласованию.' },
+  { title: 'Монтаж', text: 'Бригада выезжает на объект. Земляные работы, установка, подключение, пуско-наладка. Срок — 1 день.' },
+  { title: 'Гарантия и сервис', text: 'Передаём акт выполненных работ, паспорт станции, гарантийный талон. Берём станцию на сервисное обслуживание.' },
+];
+---
+
+<BaseLayout
+  title="О компании — ИТР Монтаж | Дилер септиков в Москве и МО"
+  description="ИТР Монтаж — дилер ИТР по продаже и монтажу септиков в Москве и МО. 18 брендов, гарантия 5 лет, бесплатный выезд инженера, рассрочка 0%."
+>
+  <section class="py-12 md:py-16 bg-gradient-to-br from-ink-900 to-brand-900 text-white">
+    <div class="container-page">
+      <div class="max-w-3xl">
+        <div class="inline-block bg-brand-500/20 text-brand-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-wider">
+          О компании
+        </div>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight">ИТР Монтаж — дилер ИТР по септикам в Москве и МО</h1>
+        <p class="mt-5 text-lg text-ink-200 leading-relaxed">Продаём и устанавливаем септики и автономные очистные системы от 18 ведущих производителей. Завод-партнёр Малахит. Полный цикл: от подбора до обслуживания.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-10 -mt-10 bg-white rounded-t-3xl">
+    <div class="container-page">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((s) => (
+          <div class="text-center">
+            <div class="text-3xl md:text-4xl font-bold text-brand-500">{s.value}</div>
+            <div class="text-sm text-ink-600 mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About text -->
+  <section class="py-12 md:py-16">
+    <div class="container-page max-w-3xl prose prose-ink prose-lg">
+      <h2>О нас</h2>
+      <p>ИТР Монтаж — официальный дилер инженерно-технических решений (ИТР) по продаже и монтажу септиков и автономных очистных систем в Москве и Московской области. Мы работаем напрямую с заводами-производителями, что позволяет нам предлагать клиентам цены ниже рыночных и официальную гарантию на все товары и работы.</p>
+      <p>В нашем каталоге — 18 ведущих брендов септиков: Малахит (завод-партнёр), ТОПАС, Юнилос Астра, Евролос, Тверь, БиоДека, Тополь, Итал, Гринлос, Коловеси, Ergobox, Аквалос, Волгарь, Альта Био, Кит, ЭкоГранд и др. Подбираем модель под конкретные условия участка: тип грунта, уровень грунтовых вод, число проживающих, сантехнику в доме.</p>
+      <p>Бригады монтажников аттестованы заводами-производителями. Каждый монтаж выполняется по технологии производителя, с соблюдением всех норм и требований. После установки передаём полный пакет документов: паспорт станции, акт выполненных работ, гарантийный талон.</p>
+      <p>Обслуживание — собственным сервисным инженером, реагируем в течение 24 часов. Склад запчастей — собственный, не зависим от поставок завода. Гарантия на корпус станции — 5 лет, на монтажные работы — 2 года.</p>
+    </div>
+  </section>
+
+  <!-- Advantages -->
+  <section class="py-12 md:py-16 bg-ink-50">
+    <div class="container-page">
+      <div class="text-center mb-10">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Преимущества</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">Почему выбирают нас</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {advantages.map((a) => (
+          <div class="bg-white rounded-2xl p-6 border border-ink-100">
+            <h3 class="font-bold text-ink-900 mb-2">{a.title}</h3>
+            <p class="text-sm text-ink-600 leading-relaxed">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <div class="text-center mb-10">
+        <div class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Процесс работы</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-ink-900">Как мы работаем</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {process.map((p, idx) => (
+          <div class="bg-white rounded-2xl p-6 border border-ink-100">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-9 h-9 rounded-full bg-brand-500 text-white font-bold flex items-center justify-center">{idx + 1}</span>
+              <h3 class="font-bold text-ink-900">{p.title}</h3>
+            </div>
+            <p class="text-sm text-ink-600 leading-relaxed">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LeadForm />
+</BaseLayout>

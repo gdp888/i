@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SepticCard from '../components/SepticCard.astro';
+import { getCollection } from 'astro:content';
+
+const septics = await getCollection('septic');
+
+// Group by brand
+const brands = [...new Set(septics.map((s) => s.data.brand))].sort();
+
+// People options
+const peopleOptions = [1, 2, 3, 4, 5, 6, 8, 10];
+
+// Build card data
+const cards = septics.map((s) => ({
+  id: s.id,
+  href: `/catalog/${s.id}`,
+  title: s.data.title,
+  brand: s.data.brand,
+  people: s.data.people,
+  price: s.data.price,
+  priceOld: s.data.priceOld,
+  shortDescription: s.data.shortDescription,
+  image: s.data.image,
+  bestseller: s.data.bestseller,
+  featured: s.data.featured,
+  type: s.data.type,
+  highWater: s.data.highWater,
+  volumePerDay: s.data.volumePerDay,
+}));
+---
+
+<BaseLayout
+  title="Каталог септиков — купить с монтажом под ключ в Москве и МО | ИТР Монтаж"
+  description="Каталог септиков и автономных очистных систем: Малахит, ТОПАС, Юнилос Астра, Евролос, Тверь, БиоДека и др. Цены под ключ с монтажом. Подбор по числу человек и бренду."
+>
+  <section class="py-8 md:py-12 bg-ink-50">
+    <div class="container-page">
+      <!-- Breadcrumbs -->
+      <nav class="text-sm text-ink-500 mb-4">
+        <a href="/" class="hover:text-brand-600">Главная</a>
+        <span class="mx-2">/</span>
+        <span class="text-ink-900">Каталог</span>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-bold text-ink-900">Каталог септиков</h1>
+      <p class="mt-3 text-ink-600 max-w-2xl">Модели от 18 ведущих производителей АОС. Все цены указаны под ключ с монтажом и пуско-наладкой. Подбор по числу проживающих, типу и бренду.</p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="py-6 bg-white border-b border-ink-100 sticky top-16 md:top-20 z-30">
+    <div class="container-page">
+      <div class="flex flex-col md:flex-row md:items-center gap-4">
+        <!-- Brand filter -->
+        <div class="flex-1">
+          <label class="block text-xs text-ink-500 mb-1 font-medium">Бренд</label>
+          <select id="filter-brand" class="w-full md:w-auto px-3 py-2 rounded-lg border border-ink-200 text-sm bg-white">
+            <option value="">Все бренды</option>
+            {brands.map((b) => <option value={b}>{b}</option>)}
+          </select>
+        </div>
+
+        <!-- People filter -->
+        <div class="flex-1">
+          <label class="block text-xs text-ink-500 mb-1 font-medium">Кол-во человек</label>
+          <select id="filter-people" class="w-full md:w-auto px-3 py-2 rounded-lg border border-ink-200 text-sm bg-white">
+            <option value="">Любое</option>
+            {peopleOptions.map((p) => <option value={p}>до {p} чел.</option>)}
+          </select>
+        </div>
+
+        <!-- Type filter -->
+        <div class="flex-1">
+          <label class="block text-xs text-ink-500 mb-1 font-medium">Тип</label>
+          <select id="filter-type" class="w-full md:w-auto px-3 py-2 rounded-lg border border-ink-200 text-sm bg-white">
+            <option value="">Все типы</option>
+            <option value="АОС">АОС (аэрационная)</option>
+            <option value="накопитель">Накопитель</option>
+            <option value="септик-отстойник">Отстойник</option>
+            <option value="кессон">Кессон</option>
+          </select>
+        </div>
+
+        <!-- Sort -->
+        <div class="flex-1">
+          <label class="block text-xs text-ink-500 mb-1 font-medium">Сортировка</label>
+          <select id="sort" class="w-full md:w-auto px-3 py-2 rounded-lg border border-ink-200 text-sm bg-white">
+            <option value="popular">Сначала популярные</option>
+            <option value="price-asc">Цена: по возрастанию</option>
+            <option value="price-desc">Цена: по убыванию</option>
+            <option value="people-asc">По числу человек ↑</option>
+            <option value="people-desc">По числу человек ↓</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-3 text-sm text-ink-600">
+        Найдено: <span id="count" class="font-semibold text-ink-900">{cards.length}</span> моделей
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="py-10 md:py-14 bg-white">
+    <div class="container-page">
+      <div id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {cards.map((c) => (
+          <div
+            data-card
+            data-brand={c.brand}
+            data-people={c.people}
+            data-price={c.price}
+            data-type={c.type}
+            data-bestseller={c.bestseller ? '1' : '0'}
+          >
+            <SepticCard
+              href={c.href}
+              title={c.title}
+              brand={c.brand}
+              people={c.people}
+              price={c.price}
+              priceOld={c.priceOld}
+              shortDescription={c.shortDescription}
+              badge={c.bestseller ? 'Бестселлер' : undefined}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div id="empty" class="hidden text-center py-16">
+        <div class="text-4xl mb-3">🔍</div>
+        <h3 class="text-xl font-bold mb-2">Ничего не найдено</h3>
+        <p class="text-ink-600 mb-4">Попробуйте изменить фильтры</p>
+        <button id="reset-filters" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2.5 rounded-lg">
+          Сбросить фильтры
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO text -->
+  <section class="py-12 bg-ink-50 border-t border-ink-100">
+    <div class="container-page max-w-3xl">
+      <h2 class="text-2xl font-bold text-ink-900 mb-4">Как выбрать септик для загородного дома</h2>
+      <div class="space-y-4 text-ink-700 leading-relaxed">
+        <p>
+          Выбор септика зависит от нескольких ключевых факторов: число постоянно проживающих в доме, тип грунта на участке, уровень грунтовых вод (УГВ), наличие бытовой техники (стиральная и посудомоечная машины) и режим проживания (постоянное или сезонное).
+        </p>
+        <p>
+          Для постоянного проживания оптимально подходят автономные очистные станции (АОС) с аэрационной биоочисткой — Малахит АИР, ТОПАС, Юнилос Астра, Евролос Био. Они очищают стоки до 98%, не требуют частой откачки и не имеют запаха.
+        </p>
+        <p>
+          Для дачи с непостоянным проживанием и при отсутствии электричества подойдут энергонезависимые септики с биофильтром (Тверь) или накопительные ёмкости (Малахит НЕРО). Они проще в установке и дешевле, но требуют регулярной откачки ассенизатором.
+        </p>
+        <p>
+          Для участков с высоким уровнем грунтовых вод (УГВ) и глинистыми почвами рекомендуем принудительные модели — Малахит ГЕО или Евролос Профи с насосом отвода очищенной воды.
+        </p>
+        <p>
+          Все цены в каталоге указаны под ключ с монтажом: земляные работы, установка станции, подключение к канализации дома, электропитание, обвязка отвода воды, пуско-наладка. Гарантия на корпус — 5 лет, на оборудование — до 2 лет.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const brandSel = document.getElementById('filter-brand') as HTMLSelectElement;
+  const peopleSel = document.getElementById('filter-people') as HTMLSelectElement;
+  const typeSel = document.getElementById('filter-type') as HTMLSelectElement;
+  const sortSel = document.getElementById('sort') as HTMLSelectElement;
+  const grid = document.getElementById('grid');
+  const countEl = document.getElementById('count');
+  const empty = document.getElementById('empty');
+  const resetBtn = document.getElementById('reset-filters');
+
+  function apply() {
+    const brand = brandSel.value;
+    const people = peopleSel.value ? parseInt(peopleSel.value) : 0;
+    const type = typeSel.value;
+    const sort = sortSel.value;
+
+    const cards = Array.from(grid?.querySelectorAll('[data-card]') ?? []);
+    let visible = 0;
+    const visibleCards: HTMLElement[] = [];
+
+    cards.forEach((card) => {
+      const el = card as HTMLElement;
+      const cBrand = el.dataset.brand || '';
+      const cPeople = parseInt(el.dataset.people || '0');
+      const cType = el.dataset.type || '';
+
+      let show = true;
+      if (brand && cBrand !== brand) show = false;
+      if (people && cPeople > people) show = false;
+      if (type && cType !== type) show = false;
+
+      if (show) {
+        el.classList.remove('hidden');
+        visible++;
+        visibleCards.push(el);
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    // Sort
+    visibleCards.sort((a, b) => {
+      const aPrice = parseInt(a.dataset.price || '0');
+      const bPrice = parseInt(b.dataset.price || '0');
+      const aPeople = parseInt(a.dataset.people || '0');
+      const bPeople = parseInt(b.dataset.people || '0');
+      const aBest = a.dataset.bestseller === '1' ? 1 : 0;
+      const bBest = b.dataset.bestseller === '1' ? 1 : 0;
+
+      switch (sort) {
+        case 'price-asc': return aPrice - bPrice;
+        case 'price-desc': return bPrice - aPrice;
+        case 'people-asc': return aPeople - bPeople;
+        case 'people-desc': return bPeople - aPeople;
+        case 'popular':
+        default: return bBest - aBest || aPrice - bPrice;
+      }
+    });
+
+    // Reorder DOM
+    visibleCards.forEach((el) => grid?.appendChild(el));
+
+    countEl!.textContent = String(visible);
+    empty?.classList.toggle('hidden', visible > 0);
+  }
+
+  [brandSel, peopleSel, typeSel, sortSel].forEach((el) => {
+    el?.addEventListener('change', apply);
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    brandSel.value = '';
+    peopleSel.value = '';
+    typeSel.value = '';
+    sortSel.value = 'popular';
+    apply();
+  });
+
+  apply();
+</script>

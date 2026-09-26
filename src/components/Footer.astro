@@ -1,0 +1,115 @@
+---
+const phone = '+7 (495) 792-72-77';
+const phoneHref = '+74957927277';
+const email = 'info@itr-montazh.ru';
+const workHours = '09:00–19:00 пн–пт';
+
+const year = new Date().getFullYear();
+
+const col1 = [
+  { href: '/', label: 'Главная' },
+  { href: '/catalog', label: 'Каталог септиков' },
+  { href: '/services', label: 'Услуги' },
+  { href: '/portfolio', label: 'Наши работы' },
+];
+const col2 = [
+  { href: '/about', label: 'О компании' },
+  { href: '/faq', label: 'Вопрос-ответ' },
+  { href: '/contacts', label: 'Контакты' },
+  { href: '/lead-form', label: 'Оставить заявку' },
+];
+const brands = ['Малахит', 'ТОПАС', 'Юнилос Астра', 'Евролос', 'Тверь', 'БиоДека', 'Тополь', 'Итал', 'Гринлос', 'Китовеси', 'Ergobox', 'Аквалос'];
+---
+
+<footer class="bg-ink-900 text-ink-200 mt-20">
+  <div class="container-page py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- About -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-10 h-10 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-lg">
+            ИТР
+          </div>
+          <div class="leading-tight">
+            <div class="font-bold text-white text-lg">ИТР Монтаж</div>
+            <div class="text-xs text-ink-400">Септики под ключ</div>
+          </div>
+        </div>
+        <p class="text-sm text-ink-300 leading-relaxed">
+          Дилер ИТР — продажа и монтаж септиков и автономных очистных систем
+          в Москве и Московской области. Завод Малахит и 18 ведущих брендов.
+        </p>
+      </div>
+
+      <!-- Разделы -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Разделы</h4>
+        <ul class="space-y-2">
+          {col1.map((item) => (
+            <li>
+              <a href={item.href} class="text-sm text-ink-300 hover:text-brand-400 transition-colors">{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Информация -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Информация</h4>
+        <ul class="space-y-2">
+          {col2.map((item) => (
+            <li>
+              <a href={item.href} class="text-sm text-ink-300 hover:text-brand-400 transition-colors">{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Контакты -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Контакты</h4>
+        <ul class="space-y-3 text-sm">
+          <li>
+            <a href={`tel:${phoneHref}`} class="flex items-center gap-2 text-white font-semibold hover:text-brand-400 transition-colors">
+              <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.22l-2.3 1.15a11 11 0 005.52 5.52l1.15-2.3a1 1 0 011.22-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z"/>
+              </svg>
+              {phone}
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${email}`} class="flex items-center gap-2 text-ink-300 hover:text-brand-400 transition-colors">
+              <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              {email}
+            </a>
+          </li>
+          <li class="flex items-start gap-2 text-ink-300">
+            <svg class="w-4 h-4 mt-0.5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            {workHours}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Brands -->
+    <div class="mt-10 pt-8 border-t border-ink-800">
+      <div class="text-xs text-ink-400 uppercase tracking-wider mb-3">Бренды</div>
+      <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-300">
+        {brands.map((b) => <span class="hover:text-brand-400 transition-colors cursor-default">{b}</span>)}
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-8 pt-8 border-t border-ink-800 flex flex-col md:flex-row justify-between gap-4 text-xs text-ink-400">
+      <div>© {year} ИТР Монтаж. Все права защищены.</div>
+      <div class="flex gap-4">
+        <a href="/privacy" class="hover:text-brand-400 transition-colors">Политика конфиденциальности</a>
+        <a href="/sitemap-index.xml" class="hover:text-brand-400 transition-colors">Карта сайта</a>
+      </div>
+    </div>
+  </div>
+</footer>

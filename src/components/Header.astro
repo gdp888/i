@@ -1,0 +1,90 @@
+---
+const navItems = [
+  { href: '/', label: 'Главная' },
+  { href: '/catalog', label: 'Каталог' },
+  { href: '/services', label: 'Услуги' },
+  { href: '/portfolio', label: 'Наши работы' },
+  { href: '/about', label: 'О компании' },
+  { href: '/faq', label: 'Вопрос-ответ' },
+  { href: '/contacts', label: 'Контакты' },
+];
+
+const phone = '+7 (495) 792-72-77';
+const phoneHref = '+74957927277';
+const email = 'info@itr-montazh.ru';
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-ink-100">
+  <div class="container-page flex items-center justify-between h-16 md:h-20">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 group">
+      <div class="w-10 h-10 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-lg shrink-0">
+        ИТР
+      </div>
+      <div class="leading-tight">
+        <div class="font-bold text-ink-900 text-base md:text-lg">ИТР Монтаж</div>
+        <div class="text-xs text-ink-500 hidden sm:block">Септики под ключ · Москва и МО</div>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-1">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="px-3 py-2 text-sm font-medium text-ink-700 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Phone + CTA -->
+    <div class="flex items-center gap-3">
+      <a
+        href={`tel:${phoneHref}`}
+        class="hidden md:flex items-center gap-2 text-ink-900 font-semibold hover:text-brand-600 transition-colors"
+      >
+        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.22l-2.3 1.15a11 11 0 005.52 5.52l1.15-2.3a1 1 0 011.22-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z"/>
+        </svg>
+        <span class="text-sm">{phone}</span>
+      </a>
+      <a
+        href="#lead-form"
+        class="hidden sm:inline-flex bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors"
+      >
+        Заказать звонок
+      </a>
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden p-2 text-ink-700 hover:bg-ink-100 rounded-md"
+        aria-label="Меню"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-ink-100 bg-white">
+    <nav class="container-page py-3 flex flex-col gap-1">
+      {navItems.map((item) => (
+        <a href={item.href} class="px-3 py-3 text-base font-medium text-ink-700 hover:bg-brand-50 rounded-md">
+          {item.label}
+        </a>
+      ))}
+      <a href={`tel:${phoneHref}`} class="px-3 py-3 text-base font-semibold text-brand-600">
+        {phone}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

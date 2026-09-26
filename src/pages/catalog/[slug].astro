@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SepticCard from '../../components/SepticCard.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const septics = await getCollection('septic');
+  return septics.map((s) => ({
+    params: { slug: s.id },
+    props: { septic: s },
+  }));
+}
+
+const { septic } = Astro.props;
+const { Content } = await render(septic);
+
+const priceFmt = new Intl.NumberFormat('ru-RU').format(septic.data.price);
+const priceOldFmt = septic.data.priceOld
+  ? new Intl.NumberFormat('ru-RU').format(septic.data.priceOld)
+  : null;
+const discount = septic.data.priceOld
+  ? Math.round((1 - septic.data.price / septic.data.priceOld) * 100)
+  : 0;
+
+const all = await getCollection('septic');
+const related = all
+  .filter((s) => s.data.brand === septic.data.brand && s.id !== septic.id)
+  .slice(0, 4);
+if (related.length < 4) {
+  const others = all
+    .filter((s) => s.data.brand !== septic.data.brand && s.id !== septic.id)
+    .slice(0, 4 - related.length);
+  related.push(...others);
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": septic.data.title,
+  "description": septic.data.shortDescription,
+  "brand": { "@type": "Brand", "name": septic.data.brand },
+  "offers": {
+    "@type": "Offer",
+    "price": septic.data.price,
+    "priceCurrency": "RUB",
+    "availability": "https://schema.org/InStock",
+    "url": new URL(`/catalog/${septic.id}`, Astro.site ?? 'https://itr-montazh.ru').toString(),
+  },
+};
+---
+
+<BaseLayout
+  title={`${septic.data.title} — купить с монтажом под ключ | ИТР Монтаж`}
+  description={septic.data.shortDescription}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Breadcrumbs -->
+  <section class="bg-ink-50 py-4 border-b border-ink-100">
+    <div class="container-page text-sm text-ink-500">
+      <a href="/" class="hover:text-brand-600">Главная</a>
+      <span class="mx-2">/</span>
+      <a href="/catalog" class="hover:text-brand-600">Каталог</a>
+      <span class="mx-2">/</span>
+      <span class="text-ink-900">{septic.data.title}</span>
+    </div>
+  </section>
+
+  <!-- Product detail -->
+  <section class="py-10 md:py-14">
+    <div class="container-page">
+      <div class="grid lg:grid-cols-2 gap-10">
+        <div>
+          <div class="aspect-square bg-gradient-to-br from-brand-50 to-brand-100 rounded-3xl relative overflow-hidden flex items-center justify-center">
+            {septic.data.image ? (
+              <img src={septic.data.image} alt={septic.data.title} class="w-full h-full object-cover" />
+            ) : (
+              <div class="text-brand-300">
+                <svg class="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.75v6.75a2.25 2.25 0 002.25 2.25h12a2.25 2.25 0 002.25-2.25V9.75m-16.5 0V6.75A2.25 2.25 0 015.997 4.5h12A2.25 2.25 0 0120.25 6.75v3m-16.5 0h16.5" />
+                </svg>
+              </div>
+            )}
+            {discount > 0 && (
+              <span class="absolute top-5 left-5 bg-red-500 text-white text-sm font-semibold px-3 py-1.5 rounded-lg">
+                -{discount}%
+              </span>
+            )}
+            {septic.data.bestseller && (
+              <span class="absolute top-5 right-5 bg-brand-500 text-white text-sm font-semibold px-3 py-1.5 rounded-lg">
+                Бестселлер
+              </span>
+            )}
+          </div>
+          <p class="mt-3 text-xs text-ink-500 text-center">Фото может отличаться от реального товара. Запросите актуальное фото у менеджера.</p>
+        </div>
+
+        <div>
+          <div class="text-sm text-brand-600 font-semibold uppercase tracking-wider">{septic.data.brand}</div>
+          <h1 class="mt-1 text-3xl md:text-4xl font-bold text-ink-900">{septic.data.title}</h1>
+          <p class="mt-3 text-ink-600 leading-relaxed">{septic.data.shortDescription}</p>
+
+          <div class="mt-6 p-5 bg-ink-50 rounded-2xl">
+            <div class="flex items-end gap-3">
+              <div class="text-3xl font-bold text-ink-900">{priceFmt} ₽</div>
+              {priceOldFmt && (
+                <div class="text-lg text-ink-400 line-through">{priceOldFmt} ₽</div>
+              )}
+            </div>
+            <div class="mt-1 text-sm text-ink-600">Цена под ключ с монтажом</div>
+
+            <div class="mt-4 grid grid-cols-2 gap-3">
+              <a href="#lead-form" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold py-3 rounded-lg text-center transition-colors">
+                Заказать монтаж
+              </a>
+              <a href="tel:+74957927277" class="bg-white border border-ink-200 hover:border-brand-400 text-ink-900 font-semibold py-3 rounded-lg text-center transition-colors">
+                Позвонить
+              </a>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-ink-200 grid grid-cols-2 gap-2 text-xs text-ink-600">
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Гарантия {septic.data.warranty ?? '5 лет'}
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Монтаж за 1 день
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Бесплатный выезд
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Рассрочка 0%
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+            <div class="flex justify-between p-3 bg-white border border-ink-100 rounded-lg">
+              <span class="text-ink-500">Пользователи</span>
+              <span class="font-semibold">{septic.data.people} чел.</span>
+            </div>
+            <div class="flex justify-between p-3 bg-white border border-ink-100 rounded-lg">
+              <span class="text-ink-500">Произв-ность</span>
+              <span class="font-semibold">{septic.data.volumePerDay} л/сут</span>
+            </div>
+            <div class="flex justify-between p-3 bg-white border border-ink-100 rounded-lg">
+              <span class="text-ink-500">Тип</span>
+              <span class="font-semibold">{septic.data.type}</span>
+            </div>
+            <div class="flex justify-between p-3 bg-white border border-ink-100 rounded-lg">
+              <span class="text-ink-500">Отвод воды</span>
+              <span class="font-semibold">{septic.data.discharge ?? '—'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 grid lg:grid-cols-3 gap-10">
+        <div class="lg:col-span-2 prose prose-ink max-w-none">
+          <Content />
+        </div>
+
+        <aside>
+          <div class="bg-white border border-ink-100 rounded-2xl p-6 sticky top-24">
+            <h3 class="font-bold text-ink-900 mb-4">Характеристики</h3>
+            <dl class="space-y-2.5 text-sm">
+              {septic.data.specs.map((spec) => (
+                <div class="flex justify-between gap-3 pb-2 border-b border-ink-100">
+                  <dt class="text-ink-500">{spec.label}</dt>
+                  <dd class="font-semibold text-right text-ink-900">{spec.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            {septic.data.features.length > 0 && (
+              <>
+                <h3 class="font-bold text-ink-900 mt-6 mb-3">Преимущества</h3>
+                <ul class="space-y-2 text-sm">
+                  {septic.data.features.map((f) => (
+                    <li class="flex items-start gap-2">
+                      <svg class="w-4 h-4 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="py-12 bg-ink-50">
+      <div class="container-page">
+        <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-8">Похожие модели</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {related.map((s) => (
+            <SepticCard
+              href={`/catalog/${s.id}`}
+              title={s.data.title}
+              brand={s.data.brand}
+              people={s.data.people}
+              price={s.data.price}
+              priceOld={s.data.priceOld}
+              shortDescription={s.data.shortDescription}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <LeadForm
+    variant="compact"
+    title={`Заказать ${septic.data.title} с монтажом`}
+    subtitle="Оставьте контакты — мы перезвоним, согласуем выезд и зафиксируем цену"
+    preset={septic.data.title}
+  />
+</BaseLayout>

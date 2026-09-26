@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'ИТР Монтаж — септики под ключ в Москве и МО',
+  description = 'Дилер ИТР — продажа и монтаж септиков и автономных очистных систем в Москве и МО. Завод Малахит и 18 ведущих брендов. Подбор, монтаж под ключ, обслуживание. Бесплатный выезд инженера.',
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://itr-montazh.ru');
+const siteOrigin = (Astro.site ?? 'https://itr-montazh.ru').toString().replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={`${siteOrigin}/favicon.svg`} />
+  <meta property="og:site_name" content="ИТР Монтаж" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteOrigin}/favicon.svg`} />
+
+  <!-- Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+  />
+
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "ИТР Монтаж",
+    "description": "Дилер ИТР — продажа и монтаж септиков в Москве и МО",
+    "image": `${siteOrigin}/favicon.svg`,
+    "url": canonical.toString(),
+    "telephone": "+74957927277",
+    "email": "info@itr-montazh.ru",
+    "priceRange": "₽₽",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Московская область",
+      "addressCountry": "RU"
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Москва и Московская область"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00",
+      "closes": "19:00"
+    }]
+  })} />
+</head>
+<body>
+  <Header />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

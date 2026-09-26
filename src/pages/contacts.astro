@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+const phone = '+7 (495) 792-72-77';
+const phoneHref = '+74957927277';
+const email = 'info@itr-montazh.ru';
+const workHours = '09:00–19:00 пн–пт';
+---
+
+<BaseLayout
+  title="Контакты — ИТР Монтаж | Септики в Москве и МО"
+  description="Контакты ИТР Монтаж: телефон, email, часы работы. Дилер ИТР по септикам в Москве и МО. Бесплатный выезд инженера."
+>
+  <section class="py-10 md:py-14 bg-ink-50">
+    <div class="container-page">
+      <nav class="text-sm text-ink-500 mb-4">
+        <a href="/" class="hover:text-brand-600">Главная</a>
+        <span class="mx-2">/</span>
+        <span class="text-ink-900">Контакты</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-ink-900">Контакты</h1>
+      <p class="mt-3 text-ink-600 max-w-2xl">Свяжитесь с нами удобным способом — мы перезвоним в течение 15 минут в рабочее время.</p>
+    </div>
+  </section>
+
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <div class="grid lg:grid-cols-2 gap-10">
+        <!-- Contacts block -->
+        <div>
+          <div class="space-y-4">
+            <a href={`tel:${phoneHref}`} class="flex items-center gap-4 p-5 bg-white border border-ink-100 rounded-2xl hover:border-brand-300 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.22l-2.3 1.15a11 11 0 005.52 5.52l1.15-2.3a1 1 0 011.22-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-ink-500 uppercase tracking-wider">Телефон</div>
+                <div class="font-bold text-lg text-ink-900">{phone}</div>
+              </div>
+            </a>
+
+            <a href={`mailto:${email}`} class="flex items-center gap-4 p-5 bg-white border border-ink-100 rounded-2xl hover:border-brand-300 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-ink-500 uppercase tracking-wider">Email</div>
+                <div class="font-bold text-lg text-ink-900">{email}</div>
+              </div>
+            </a>
+
+            <div class="flex items-center gap-4 p-5 bg-white border border-ink-100 rounded-2xl">
+              <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-ink-500 uppercase tracking-wider">Часы работы</div>
+                <div class="font-bold text-lg text-ink-900">{workHours}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-5 bg-white border border-ink-100 rounded-2xl">
+              <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-ink-500 uppercase tracking-wider">Регион работы</div>
+                <div class="font-bold text-lg text-ink-900">Москва и МО</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Messengers -->
+          <div class="mt-6">
+            <div class="text-xs text-ink-500 uppercase tracking-wider mb-3">Мессенджеры</div>
+            <div class="flex flex-wrap gap-3">
+              <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#229ED9] text-white rounded-lg hover:opacity-90 transition-opacity">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                Telegram
+              </a>
+              <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#25D366] text-white rounded-lg hover:opacity-90 transition-opacity">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                WhatsApp
+              </a>
+            </div>
+            <p class="mt-3 text-xs text-ink-500">Ссылки на мессенджеры будут добавлены после согласования</p>
+          </div>
+        </div>
+
+        <!-- Map placeholder -->
+        <div>
+          <div class="aspect-square lg:aspect-auto lg:h-full min-h-[400px] bg-ink-100 rounded-2xl overflow-hidden relative">
+            <div class="absolute inset-0 flex items-center justify-center text-ink-400">
+              <div class="text-center">
+                <svg class="w-16 h-16 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m6-3V6.75A2.25 2.25 0 0018.75 4.5H5.25A2.25 2.25 0 003 6.75v6a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 12.75z"/></svg>
+                <p class="font-semibold text-ink-700">Карта будет добавлена</p>
+                <p class="text-sm mt-1">Яндекс.Карта или 2GIS с зоной выезда</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LeadForm />
+</BaseLayout>
