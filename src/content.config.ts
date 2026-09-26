@@ -32,6 +32,12 @@ const services = defineCollection({
     title: z.string(),
     slug: z.string(),
     icon: z.string().default('wrench'),
+    category: z.enum([
+      'Септики и АОС',
+      'Вода и канализация',
+      'Инженерные системы',
+      'Благоустройство',
+    ]).default('Септики и АОС'),
     shortDescription: z.string(),
     description: z.string(),
     price: z.string().optional(),

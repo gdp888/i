@@ -7,7 +7,7 @@ interface LeadData {
   preset?: string;
 }
 
-const LEAD_EMAIL = 'info@itr-montazh.ru'; // TODO: подставить реальный email брата
+const LEAD_EMAIL = 'nt@itr-rf.ru'; // TODO: подставить реальный email брата
 const LEAD_TELEGRAM_BOT_TOKEN = '';       // TODO: подставить токен Telegram-бота (опционально)
 const LEAD_TELEGRAM_CHAT_ID = '';         // TODO: подставить chat_id (опционально)
 

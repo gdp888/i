@@ -9,9 +9,10 @@ const navItems = [
   { href: '/contacts', label: 'Контакты' },
 ];
 
-const phone = '+7 (495) 792-72-77';
-const phoneHref = '+74957927277';
-const email = 'info@itr-montazh.ru';
+const phone = '+7 (964) 585-34-13';
+const phoneHref = '+79645853413';
+const email = 'nt@itr-rf.ru';
+const telegram = 'https://t.me/nikolai_tupitsyn';
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-ink-100">
@@ -23,7 +24,7 @@ const email = 'info@itr-montazh.ru';
       </div>
       <div class="leading-tight">
         <div class="font-bold text-ink-900 text-base md:text-lg">ИТР Монтаж</div>
-        <div class="text-xs text-ink-500 hidden sm:block">Септики под ключ · Москва и МО</div>
+        <div class="text-xs text-ink-500 hidden sm:block">Инженерные решения под ключ · Москва и МО</div>
       </div>
     </a>
 
@@ -42,6 +43,15 @@ const email = 'info@itr-montazh.ru';
     <!-- Phone + CTA -->
     <div class="flex items-center gap-3">
       <a
+        href={telegram}
+        target="_blank"
+        rel="noopener"
+        class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#229ED9] text-white hover:opacity-90 transition-opacity"
+        aria-label="Telegram"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      </a>
+      <a
         href={`tel:${phoneHref}`}
         class="hidden md:flex items-center gap-2 text-ink-900 font-semibold hover:text-brand-600 transition-colors"
       >
@@ -54,7 +64,7 @@ const email = 'info@itr-montazh.ru';
         href="#lead-form"
         class="hidden sm:inline-flex bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors"
       >
-        Заказать звонок
+        Заявка
       </a>
       <button
         id="mobile-menu-btn"
@@ -76,9 +86,14 @@ const email = 'info@itr-montazh.ru';
           {item.label}
         </a>
       ))}
-      <a href={`tel:${phoneHref}`} class="px-3 py-3 text-base font-semibold text-brand-600">
-        {phone}
-      </a>
+      <div class="mt-2 pt-2 border-t border-ink-100 flex flex-col gap-2">
+        <a href={`tel:${phoneHref}`} class="px-3 py-3 text-base font-semibold text-brand-600">
+          {phone}
+        </a>
+        <a href={telegram} target="_blank" class="px-3 py-3 text-base font-medium text-[#229ED9]">
+          Telegram
+        </a>
+      </div>
     </nav>
   </div>
 </header>

@@ -2,15 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LeadForm from '../components/LeadForm.astro';
 
-const phone = '+7 (495) 792-72-77';
-const phoneHref = '+74957927277';
-const email = 'info@itr-montazh.ru';
+const phone = '+7 (964) 585-34-13';
+const phoneHref = '+79645853413';
+const email = 'nt@itr-rf.ru';
 const workHours = '09:00–19:00 пн–пт';
+const telegram = 'https://t.me/nikolai_tupitsyn';
+const telegramChannel = 'https://t.me/malahit_septik';
+const managerName = 'Николай';
 ---
 
 <BaseLayout
-  title="Контакты — ИТР Монтаж | Септики в Москве и МО"
-  description="Контакты ИТР Монтаж: телефон, email, часы работы. Дилер ИТР по септикам в Москве и МО. Бесплатный выезд инженера."
+  title="Контакты — ИТР Монтаж | Инженерные решения в Москве и МО"
+  description="Контакты ИТР Монтаж: телефон +7 (964) 585-34-13, email nt@itr-rf.ru, Telegram. Дилер ИТР по септикам и инженерным системам в Москве и МО."
 >
   <section class="py-10 md:py-14 bg-ink-50">
     <div class="container-page">
@@ -75,16 +78,29 @@ const workHours = '09:00–19:00 пн–пт';
           <div class="mt-6">
             <div class="text-xs text-ink-500 uppercase tracking-wider mb-3">Мессенджеры</div>
             <div class="flex flex-wrap gap-3">
-              <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#229ED9] text-white rounded-lg hover:opacity-90 transition-opacity">
+              <a href={telegram} target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#229ED9] text-white rounded-lg hover:opacity-90 transition-opacity">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-                Telegram
+                Telegram: {managerName}
               </a>
-              <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#25D366] text-white rounded-lg hover:opacity-90 transition-opacity">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                WhatsApp
+              <a href={telegramChannel} target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:opacity-90 transition-opacity">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.5c0-3.148 2.552-5.5 5.5-5.5s5.5 2.352 5.5 5.5M3 13.5c0 3.148 2.552 5.5 5.5 5.5s5.5-2.352 5.5-5.5M3 13.5V18a2 2 0 002 2h2M11 18h2a2 2 0 002-2v-4.5M14.5 5.5L17 8M11.5 5.5L17 11"/></svg>
+                Telegram-канал
               </a>
             </div>
-            <p class="mt-3 text-xs text-ink-500">Ссылки на мессенджеры будут добавлены после согласования</p>
+          </div>
+
+          <!-- Manager card -->
+          <div class="mt-6 p-5 bg-gradient-to-br from-brand-50 to-brand-100 rounded-2xl">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-brand-500 text-white font-bold text-xl flex items-center justify-center">
+                {managerName.charAt(0)}
+              </div>
+              <div>
+                <div class="font-bold text-ink-900 text-lg">{managerName}</div>
+                <div class="text-sm text-ink-600">Менеджер по работе с клиентами</div>
+                <div class="text-xs text-ink-500 mt-1">Ответит на вопросы по септикам, скважинам, отоплению</div>
+              </div>
+            </div>
           </div>
         </div>
 
